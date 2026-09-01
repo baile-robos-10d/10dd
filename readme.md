@@ -12,8 +12,8 @@ Este documento mapeia todas as conexões físicas do ESP32 Dev Module utilizadas
 | **Sensor de Rotação (Encoder Dir.)** | `14` | `encoderD` |
 | **Giroscópio MPU6050 (SDA)** | `21` | `sda_gyro` |
 | **Giroscópio MPU6050 (SCL)** | `22` | `slc_gyro` |
-| **Módulo de Áudio DFPlayer (TX)** | `12` | `PIN_MP3_TX` |
-| **Módulo de Áudio DFPlayer (RX)** | `13` | `PIN_MP3_RX` |
+| **Módulo de Áudio DFPlayer (TX)** | `12` | `MP3_TX` |
+| **Módulo de Áudio DFPlayer (RX)** | `13` | `MP3_RX` |
 | **Lógica / Shift Register** | `18`, `19`, `23` | `seri`, `rclk`, `srclk` |
 | **LEDs de Efeitos (Coreografia)** | `2`, `4`, `5`, `12`, `13`, `14`, `15`, `16` | Array `led[NUM_LEDS]` |
 

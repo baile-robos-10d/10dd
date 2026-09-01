@@ -4,7 +4,7 @@
 #include "OtaSetup.h"
 #include "MQTT_WEBSOCKET_H"
 
-SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
+SoftwareSerial softwareSerial(MP3_RX, MP3_TX);
 DFRobotDFPlayerMini player;
 
 void setup() {

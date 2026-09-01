@@ -30,8 +30,8 @@ private:
     float spacing = 0.6f;
     float circleRadius = 0.8f;
     
-    int getRobotIndex(const String& robotId) {
-        String numStr = robotId.substring(4);
+    int getRobotIndex(const String& id_robo) {
+        String numStr = id_robo.substring(4);
         return numStr.toInt() - 1;
     }
     
@@ -50,9 +50,9 @@ public:
     void setSpacing(float s) { spacing = s; }
     void setCircleRadius(float r) { circleRadius = r; }
     
-    InitialPosition getInitialPosition(const String& robotId) {
+    InitialPosition getInitialPosition(const String& id_robo) {
         InitialPosition pos = {0, 0, 0, false};
-        int index = getRobotIndex(robotId);
+        int index = getRobotIndex(id_robo);
         
         if (index < 0 || index >= totalRobots) {
             pos.isValid = false;
@@ -125,9 +125,9 @@ public:
         doc["formation_type"] = formation;
         doc["total_robots"] = totalRobots;
         doc["spacing"] = spacing;
-        doc["robot_id"] = robotId;
+        doc["robot_id"] = id_robo;
         
-        InitialPosition pos = getInitialPosition(String(robotId));
+        InitialPosition pos = getInitialPosition(String(id_robo));
         if (pos.isValid) {
             doc["initial_x"] = pos.x;
             doc["initial_y"] = pos.y;
@@ -136,10 +136,10 @@ public:
         
         char buffer[512];
         serializeJson(doc, buffer);
-        // publishMQTT será chamado externamente
+        // publicarMQTT será chamado externamente
         if (mqttConnected) {
-            extern void publishMQTT(const char*, const char*);
-            publishMQTT("robot/formation", buffer);
+            extern void publicarMQTT(const char*, const char*);
+            publicarMQTT("robo/formation", buffer);
         }
     }
 };
