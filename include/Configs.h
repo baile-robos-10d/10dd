@@ -1,6 +1,8 @@
 #ifndef CONFIGS_H
 #define CONFIGS_H
 
+
+
 #include <WiFi.h>
 #include <WiFiClientSecure.h> 
 #include <PubSubClient.h>
@@ -9,6 +11,7 @@
 #include <ArduinoJson.h>
 #include <SoftwareSerial.h>
 #include <DFRobotDFPlayerMini.h>
+#include <math.h>
 
 //Versão do Codigo
 const char* version = "V3.0-novorobo";
@@ -26,7 +29,7 @@ char id_robo[16] = "robo1";  // Alterar a medida que troca de robo
 WebSocketsClient webSocket;
 bool mqttConnected = false;
 
-const char* mqtt_server = "e2792d91.ala.us-east-1.emqxsl.com";
+const char* mqtt_server = "e69691e1.ala.eu-central-1.emqxsl.com";
 const int mqtt_port = 8084;
 const char* mqtt_path = "/mqtt";
 const char* mqtt_user = "baile";     
