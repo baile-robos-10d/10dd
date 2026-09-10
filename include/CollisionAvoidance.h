@@ -2,18 +2,17 @@
 #define COLLISION_AVOIDANCE_H
 
 #include "Configs.h"
-#include "Odometry.h"
 #include <map>
 #include <vector>
 
-void PWM(int dirX, int dirY);
+void PWM_PID(int dirX, int dirY); // Corrigido para PWM_PID
 
 // Modos de evitação
 enum AvoidanceMode {
   AVOID_OFF = 0,
   AVOID_SIMPLE,      // Evita apenas quando muito próximo
   AVOID_VELOCITY,    // Modifica velocidades suavemente
-  AVOID_POTENTIAL    // Campo potencial
+  AVOID_POTENTIAL    // Campo potencialemergencyStop
 };
 
 // Estrutura para informações de outros robôs
@@ -212,7 +211,7 @@ public:
   
   // Comando de parada de emergência
   void emergencyStop() {
-    PWM(0, 0);
+    PWM_PID(0, 0); // Corrigido para PWM_PID
     Serial.println("🚨 Parada de emergência por risco de colisão");
   }
 

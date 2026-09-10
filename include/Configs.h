@@ -239,4 +239,7 @@ void gravarEeprom(int temp)
   EEPROM.end();
 }
 
+void publicarMQTT(const char* topico, const char* mensagem);
+void PWM_PID(int direcaoX, int direcaoY);
+
 #endif

@@ -40,7 +40,7 @@ inline void aplicarLedsCoreografia(uint8_t estado) {
 inline void iniciarEtapaCoreografia() {
   const CoreografiaEtapa& etapa = COREOGRAFIA[etapaAtual];
   aplicarLedsCoreografia(etapa.leds);
-  PWM(etapa.velocidadeX, etapa.velocidadeY);
+  PWM_PID(etapa.velocidadeX, etapa.velocidadeY); // Substituído PWM por PWM_PID
   inicioDaEtapa = millis();
 }
 
@@ -57,13 +57,11 @@ inline void pararCoreografia() {
   if (!coreografiaEmExecucao) return;
 
   coreografiaEmExecucao = false;
-  PWM(0, 0);
+  PWM_PID(0, 0); // Substituído PWM por PWM_PID
   desligaLeds();
   Serial.println("🛑 Coreografia interrompida");
 }
 
-// Called on every main-loop iteration; it does not use delay(), keeping MQTT,
-// OTA, stop, and manual-control commands responsive.
 inline void atualizarCoreografia() {
   if (!coreografiaEmExecucao) return;
 
@@ -73,7 +71,7 @@ inline void atualizarCoreografia() {
   ++etapaAtual;
   if (etapaAtual >= COREOGRAFIA_ETAPAS) {
     coreografiaEmExecucao = false;
-    PWM(0, 0);
+    PWM_PID(0, 0); // Substituído PWM por PWM_PID
     desligaLeds();
     Serial.println("🏁 Coreografia finalizada!");
     return;

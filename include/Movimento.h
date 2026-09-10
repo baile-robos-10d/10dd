@@ -1,7 +1,44 @@
 #ifndef MOVIMENTO_H
 #define MOVIMENTO_H
 
-#include "Odometry.h"
+float lerVelocRealEsquerda(){
+    static unsigned long tempoFinal = 0;
+    static int pulsoFinal = 0;
+
+    unsigned long tempoAtual = millis();
+    unsigned long deltaTempo = tempoAtual - tempoFinal;
+    if (deltaTempo < 10) return 0;
+
+    int pulsoAtual = pulsosEncoderE;
+    int deltaPulso = pulsoAtual - pulsoFinal;
+
+    float velocidade = (deltaPulso*DIST_POR_PULSO) / (deltaTempo/1000.0);
+
+    tempoFinal = tempoAtual;
+    pulsoFinal = pulsoAtual;
+
+    return velocRealEsquerda; // m/s
+}
+
+float lerVelocRealDireita(){
+    static unsigned long tempoFinal = 0;
+    static int pulsoFinal = 0;
+
+    unsigned long tempoAtual = millis();
+    unsigned long deltaTempo = tempoAtual - tempoFinal;
+    if (deltaTempo < 10) return 0; //evita divisao por zero
+
+    int pulsoAtual = pulsosEncoderD;
+    int deltaPulso = pulsoAtual - pulsoFinal;
+
+    float velocidade = (deltaPulso*DIST_POR_PULSO) / (deltaTempo/1000.0);
+
+    tempoFinal = tempoAtual;
+    pulsoFinal = pulsoAtual;
+
+    return velocRealDireita; // m/s
+}
+
 //quarto
 // Padrões de LEDs para cada movimento
 //colocar random???
@@ -58,8 +95,8 @@ void ledsParado() {
 void atualizarOdometria(){
     static unsigned long tempoFinal = 0;
     unsigned long tempoAtual = millis();
-    float deltaTempo = (tempoAtual - tempoFinal) / 1000.0; // (s))
-    if (deltaTempo < 0.01) return 0; //evita divisao por zero
+    float deltaTempo = (tempoAtual - tempoFinal) / 1000.0; // (s)
+    if (deltaTempo < 0.01) return;
 
     int deltaPulsosDir = pulsosEncoderD - ultimoPulsosEncoderD;// Atualização de quantos pulsos desde a leitura mais nova 
     int deltaPulsosEsq = pulsosEncoderE - ultimoPulsosEncoderE; 
@@ -116,43 +153,6 @@ void atualizarVelocidades(){
     velocRealDireita = lerVelocRealDireita();
 }
 
-float lerVelocRealEsquerda(){
-    static unsigned long tempoFinal = 0;
-    static int pulsoFinal = 0;
-
-    unsigned long tempoAtual = millis();
-    unsigned long deltaTempo = tempoAtual - tempoFinal;
-    if (deltaTempo < 10) return 0;
-
-    int pulsoAtual = pulsosEncoderE;
-    int deltaPulso = pulsoAtual - pulsoFinal;
-
-    float velocidade = (deltaPulso*DIST_POR_PULSO) / (deltaTempo/1000.0);
-
-    tempoFinal = tempoAtual;
-    pulsoFinal = pulsoAtual;
-
-    return velocRealEsquerda; // m/s
-}
-
-float lerVelocRealDireita(){
-    static unsigned long tempoFinal = 0;
-    static int pulsoFinal = 0;
-
-    unsigned long tempoAtual = millis();
-    unsigned long deltaTempo = tempoAtual - tempoFinal;
-    if (deltaTempo < 10) return 0; //evita divisao por zero
-
-    int pulsoAtual = pulsosEncoderD;
-    int deltaPulso = pulsoAtual - pulsoFinal;
-
-    float velocidade = (deltaPulso*DIST_POR_PULSO) / (deltaTempo/1000.0);
-
-    tempoFinal = tempoAtual;
-    pulsoFinal = pulsoAtual;
-
-    return velocRealDireita; // m/s
-}
 
 float calcularPID(float erro){
     float erroProporcional = erro;
@@ -415,12 +415,12 @@ void desenharTrianguloEquilatero(float lado=0.5){
 
     for(int i=0; i < 3; i++){
         movFrentePreciso(lado);
-        girarGraus(120) // Ângulo externo
+        girarGraus(120); // Ângulo externo
     }
-    Serial.println("✅ Triângulo feito!")
+    Serial.println("✅ Triângulo feito!");
 }
 void desenharQuadrado(float lado = 0.5){
-    Serial.println("🔲 Desenhando quadrado...")
+    Serial.println("🔲 Desenhando quadrado...");
 
     resetarOdometria();
 
@@ -428,7 +428,7 @@ void desenharQuadrado(float lado = 0.5){
         movFrentePreciso(lado);
         girarGraus(90);
     }
-    Serial.println("✅ Quadrado feito!")
+    Serial.println("✅ Quadrado feito!");
 }
 
 void desenharCoracao(float tamanho = 0.5) {

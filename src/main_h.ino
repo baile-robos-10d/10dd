@@ -2,7 +2,7 @@
 #include "Biblioteca.h"
 #include "Configs.h"
 #include "OtaSetup.h"
-#include "MQTT_WEBSOCKET_H"
+#include "MQTT_WEBSOCKET.h"
 
 SoftwareSerial softwareSerial(MP3_RX, MP3_TX);
 DFRobotDFPlayerMini player;
@@ -18,7 +18,7 @@ void setup() {
   SetupLeds();
   Mp3Setup();
   SetupEncoders();
-  loadRobotId();
+  carregarIdRobo();
   localization.setup();
   multiRobotCoord.setup();
 
@@ -31,7 +31,7 @@ void setup() {
   Serial.print("IP: ");
   Serial.println(WiFi.localIP());
 
-  initMQTTWebSocket();
+  iniciarMQTTWebSocket();
   OTASetup();
 
   Serial.println("✅ Sistema pronto!!");

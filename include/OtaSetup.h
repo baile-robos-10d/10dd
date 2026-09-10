@@ -2,7 +2,7 @@
 #define OTASETUP_H
 
 #include <WiFiClientSecure.h>
-#include "MQTT_WEBSOCKET_H"
+#include "MQTT_WEBSOCKET.h"
 #include <WebServer.h>   //added
 #include <Update.h>   //added
 
@@ -118,7 +118,7 @@ const char* serverIndex =
  "</script>";
 
 
-void initMQTTWebSocket();   //changed position
+void iniciarMQTTWebSocket();   //changed position
 
 void OTASetup(){
     Serial.println("Booting");
