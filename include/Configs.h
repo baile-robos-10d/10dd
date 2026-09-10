@@ -25,12 +25,12 @@ char id_robo[16] = "robo1"; // Alterar a medida que troca de robo
 // Configurações MQTT
 WebSocketsClient webSocket;
 bool mqttConnected = false;
-
-const char *mqtt_server = "bfea296c.ala.us-east-1.emqxsl.com";
+// Configurações do servidor MQTT
+const char *mqtt_server = "e2792d91.ala.us-east-1.emqxsl.com";
 const int mqtt_port = 8084;
 const char *mqtt_path = "/mqtt";
-const char *mqtt_user = "baile10d";
-const char *mqtt_password = "Baile10D_2026!";
+const char *mqtt_user = "baile";
+const char *mqtt_password = "baile10";
 
 // Parâmetros do robô (para odometria e pid)
 const float BASE_RODAS = 0.230; // Distância entre rodas (metros)
